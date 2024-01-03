@@ -1,16 +1,27 @@
--- schema.lua
-
 local typedefs = require "kong.db.schema.typedefs"
 
+
 return {
-  name = "custom-auth-plugin",
+  name = "jwt-to-header",
   fields = {
-    { protocols = typedefs.protocols_http },
-    { config = {
+    {
+      route = typedefs.no_route,
+    },
+    {
+      service = typedefs.no_service,
+    },
+    {
+      consumer = typedefs.no_consumer,
+    },
+    {
+      protocols = typedefs.protocols_http,
+    },
+    {
+      config = {
         type = "record",
         fields = {
-          { api_key = { type = "string", required = true, default = "your_default_api_key" } },
-          -- Add any other configuration fields as needed
+            {  strip_claims = { type     = "string", required = true, default  = "false" }, },
+            {  token_required = { type     = "string", required = true, default  = "true" }, },          
         },
       },
     },
